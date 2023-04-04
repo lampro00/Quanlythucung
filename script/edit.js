@@ -98,10 +98,11 @@ function renderBreed(n) {
 }
 const submitBtn2 = document.getElementById("submit-btn1");
 submitBtn2.addEventListener("click", function () {
-  hiden.classList.add("hide");
   addpetArr();
+  console.log(error);
+  !error && hiden.classList.add("hide");
   let petArr = localStorage.getItem("pet")
     ? JSON.parse(localStorage.getItem("pet"))
     : [];
-  renderTableDataEdit(petArr);
+  !error && renderTableDataEdit(petArr);
 });

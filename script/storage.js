@@ -93,50 +93,51 @@ const clearInput = () => {
   sterilizedInput.check = false;
 };
 let inputid = true;
+let error = true;
 // thêm dữ liệu petArr---------------------------------------------------------------------------------------
 function addpetArr() {
   //Kiểm tra dữ kiện nhập vào
-  // for (let i = 0; i < petArr.length; i++) {
-  //   if (idInput.value === petArr[i].id) {
-  //     inputid = false;
-  //   }
-  // }
-  // if (!inputid) {
-  //   inputid = true;
-  //   alert("Duplicate ID");
-  // } else if (idInput.value == "") {
-  //   alert("Write ip");
-  // } else if (nameInput.value == "") {
-  //   alert("Write Name");
-  // } else if (ageInput.value < 1 || ageInput.value > 15) {
-  //   alert("Age must be between 1 and 15!");
-  // } else if (typeInput.value == "Select Type") {
-  //   alert("Please select Type!");
-  //   // } else if (breedInput.value == "Select Breed") {
-  //   //   alert("Please select Breed!");
-  // } else if (weightInput.value < 1 || weightInput.value > 15) {
-  //   alert("Weight must be between 1 and 15!");
-  // } else if (lengthInput.value < 1 || lengthInput.value > 100) {
-  //   alert("Length must be between 1 and 100!");
-  // } else {
-  const data = {
-    id: idInput.value,
-    name: nameInput.value,
-    age: ageInput.value,
-    type: typeInput.value,
-    weight: weightInput.value,
-    lenght: lengthInput.value,
-    color: colorInput.value,
-    breed: breedInput.value,
-    vaccinated: vaccinatedInput.checked,
-    dewormed: dewormedInput.checked,
-    sterilized: sterilizedInput.checked,
-    date: new Date(),
-  };
-  petArr.push(data);
-  saveToStorage("pet", JSON.stringify(petArr));
-
-  // }
+  for (let i = 0; i < petArr.length; i++) {
+    if (idInput.value === petArr[i].id) {
+      inputid = false;
+    }
+  }
+  if (!inputid) {
+    inputid = true;
+    alert("Duplicate ID");
+  } else if (idInput.value == "") {
+    alert("Write ip");
+  } else if (nameInput.value == "") {
+    alert("Write Name");
+  } else if (ageInput.value < 1 || ageInput.value > 15) {
+    alert("Age must be between 1 and 15!");
+  } else if (typeInput.value == "Select Type") {
+    alert("Please select Type!");
+    // } else if (breedInput.value == "Select Breed") {
+    //   alert("Please select Breed!");
+  } else if (weightInput.value < 1 || weightInput.value > 15) {
+    alert("Weight must be between 1 and 15!");
+  } else if (lengthInput.value < 1 || lengthInput.value > 100) {
+    alert("Length must be between 1 and 100!");
+  } else {
+    error = false;
+    const data = {
+      id: idInput.value,
+      name: nameInput.value,
+      age: ageInput.value,
+      type: typeInput.value,
+      weight: weightInput.value,
+      lenght: lengthInput.value,
+      color: colorInput.value,
+      breed: breedInput.value,
+      vaccinated: vaccinatedInput.checked,
+      dewormed: dewormedInput.checked,
+      sterilized: sterilizedInput.checked,
+      date: new Date(),
+    };
+    petArr.push(data);
+    saveToStorage("pet", JSON.stringify(petArr));
+  }
 }
 //---------------------------------submit-----------------------------------------------//-----
 submitBtn.addEventListener("click", function () {
@@ -145,7 +146,7 @@ submitBtn.addEventListener("click", function () {
     ? JSON.parse(localStorage.getItem("pet"))
     : [];
   renderTableData(petArr);
-  clearInput();
+  !error && clearInput();
 });
 
 function saveToStorage(key, value) {
